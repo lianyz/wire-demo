@@ -8,8 +8,8 @@ package main
 
 // Injectors from wire.go:
 
-// InitEvent 声明injector的函数签名
-func InitEvent(msg string) Event {
+// InitializeEvent 声明injector的函数签名
+func InitializeEvent(msg string) Event {
 	message := NewMessage(msg)
 	greeter := NewGreeter(message)
 	event := NewEvent(greeter)

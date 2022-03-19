@@ -9,7 +9,7 @@ package main
 import "fmt"
 
 func main() {
-	event := InitEvent("hello world")
+	event := InitializeEvent("hello world")
 	event.Start()
 }
 
