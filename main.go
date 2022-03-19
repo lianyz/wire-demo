@@ -13,16 +13,28 @@ func main() {
 	event.Start()
 }
 
-type Message struct {
+type Message interface {
+	Print()
+}
+
+type Greeter interface {
+	Greet()
+}
+
+type MessageImpl struct {
 	msg string
 }
 
-type Greeter struct {
+type GreeterImpl struct {
 	Message Message
 }
 
-func (g Greeter) Greet() Message {
-	return g.Message
+func (m MessageImpl) Print() {
+	fmt.Println(m.msg)
+}
+
+func (g GreeterImpl) Greet() {
+	g.Message.Print()
 }
 
 type Event struct {
@@ -31,11 +43,11 @@ type Event struct {
 
 // NewMessage Message的构造函数
 func NewMessage(msg string) Message {
-	return Message{msg: msg}
+	return MessageImpl{msg: msg}
 }
 
 func NewGreeter(message Message) Greeter {
-	return Greeter{Message: message}
+	return GreeterImpl{Message: message}
 }
 
 func NewEvent(greeter Greeter) Event {
@@ -43,6 +55,5 @@ func NewEvent(greeter Greeter) Event {
 }
 
 func (e Event) Start() {
-	msg := e.Greeter.Greet().msg
-	fmt.Println(msg)
+	e.Greeter.Greet()
 }
